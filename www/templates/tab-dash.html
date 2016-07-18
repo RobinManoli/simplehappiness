@@ -1,0 +1,46 @@
+<ion-view>
+	<ion-content class="padding has-header">
+		<a class="button button-full button-large button-balanced" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle('audio/kiirtan.mp3')"> Intro {{audioPosition}}</a>
+		<div class="button-bar">
+			<a class="button button-outline button-dark icon ion-ios-rewind" ng-if="audioStatus != 0" ng-click="seek(-5)"> 5s</a>
+			<a class="button button-outline button-dark icon ion-ios-fastforward" ng-if="audioStatus != 0" ng-click="seek(5)"> 5s</a>
+		</div>
+		<button class="button">audio status: {{audioStatus}}</button>
+  </ion-content>
+</ion-view>
+		<!--<button class="button">attempted: {{attemptedSetToPos}}</button>
+		<button class="button">did: {{didSetToPos}}</button>-->
+
+
+			<!--<a class="button button-outline button-dark icon ion-pause" ng-if="audioStatus == 2" ng-click="pause()"></a>
+			<a class="button button-outline button-dark icon ion-play" ng-if="audioStatus != 0 && audioStatus != 2" ng-click="play('audio/kiirtan.mp3')"></a>-->
+
+			
+			
+			
+	<!-- <div data-tap-disabled="true" >
+		<audio controls>
+			<source src="audio/kiirtan.mp3" type="audio/ogg">
+			<source src="/android_asset/www/audio/kiirtan.mp3" type="audio/ogg">
+			Your browser does not support the audio element.
+		</audio> 
+	</div>-->
+	
+      <!--<ion-audio-track track="track">
+          <div class="list list-inset">
+              <div class="item item-thumbnail-left">
+                  <img src="{{track.art}}" ng-click="test()">
+                  <h2>{{track.title}}</h2>
+                  <p>{{track.artist}}</p>
+                  <ion-audio-controls>
+                        <a class="button button-icon icon" ion-audio-play></a>
+						<br>
+                        <ion-spinner icon="ios"></ion-spinner>
+                    </ion-audio-controls>
+              </div>
+              <div class="item">
+                <ion-audio-progress-bar track="track" display-time></ion-audio-progress-bar>
+              </div>
+          </div>
+      </ion-audio-track>-->
+
