@@ -1,11 +1,18 @@
 <ion-view>
 	<ion-content class="padding has-header">
-		<a class="button button-full button-large button-balanced" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle('audio/kiirtan.mp3')"> Intro {{audioPosition}}</a>
-		<div class="button-bar">
-			<a class="button button-outline button-dark icon ion-ios-rewind" ng-if="audioStatus != 0" ng-click="seek(-5)"> 5s</a>
-			<a class="button button-outline button-dark icon ion-ios-fastforward" ng-if="audioStatus != 0" ng-click="seek(5)"> 5s</a>
+		<a class="button button-full button-large button-balanced" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle('audio/countdown.mp3')"> Intro {{audioPosition}}</a>
+		<div class="button-bar" ng-if="audioStatus != 0">
+			<a class="button button-outline button-dark icon ion-ios-rewind" ng-click="seek(-5)"> 5s</a>
+			<a class="button button-outline button-dark icon ion-ios-fastforward" ng-click="seek(5)"> 5s</a>
 		</div>
-		<button class="button">audio status: {{audioStatus}}</button>
+		<div class="item range" ng-if="audioStatus != 0 && audioDuration > -1 && audioPosition > -1">
+			<input type="range" name="volume" min="0" ng-change="sliderChange()"
+				max="{{ audioDuration }}" ng-model="data.sliderPosition">
+		</div>
+		<button class="button">audioStatus: {{audioStatus}}</button>
+		<button class="button">audioDuration: {{audioDuration}}</button>
+		<button class="button">audioPosition: {{audioPosition}}</button>
+		<button class="button">data.sliderPosition: {{data.sliderPosition}}</button>
   </ion-content>
 </ion-view>
 		<!--<button class="button">attempted: {{attemptedSetToPos}}</button>

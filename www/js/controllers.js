@@ -1,22 +1,23 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $cordovaMedia, $ionicLoading, $ionicPlatform, $interval, $timeout) {
+	//$scope.Math = window.Math;
 	$scope.audio = null;
 	$scope.audioPosition = 0;
+	$scope.data = {}; // for two-way bindings
+	$scope.data.sliderPosition = 0;
 	//$scope.attemptedSetToPos = null;
 	//$scope.didSetToPos = null;
 	
-	$scope.updatePosition = function(){
-		//var pos = null;
+	$scope.getPosition = function(){
 		$scope.audio.getCurrentPosition(
-		// success callback
+			// success callback
 			function (position) {
 				if (position > 0 ) $scope.audioPosition = parseFloat(position);
 				else $scope.audioPosition = 0;
-				//pos = position;
+				$scope.data.sliderPosition = $scope.audioPosition;
 			}
 		);
-		//return pos;
 	}
 
 	$scope.load = function(src){
@@ -24,13 +25,16 @@ angular.module('starter.controllers', [])
 		// https://forum.ionicframework.com/t/how-to-play-local-audio-files/7479/5 android path fix
 		if ($ionicPlatform.is('android')){ src = '/android_asset/www/' + src; }
         $scope.audio = new Media(src, null, null, mediaStatusCallback);
-		/*var mediaTimer = $interval(function () {
-			$scope.updatePosition();
-		}, 1000);*/
+		// todo: this timeout can be done onload instead as new Media(src..., onloadfunc, ...)
+		$timeout( function(){
+			// wait x seconds before updating audioDuration, as it shows the -1 otherwise
+			$scope.audioDuration = $scope.audio.getDuration();
+		}, 500	);
 	}
 
     $scope.startInterval = function(src) {
-		$scope.audioInterval = $interval($scope.updatePosition, 1000);
+		$scope.audioInterval = $interval($scope.getPosition, 1000);
+		//$scope.audioInterval = $interval(function(){ $scope.audioPosition += 1; }, 1000);
     }
 	
 	$scope.stopInterval = function() {
@@ -45,51 +49,37 @@ angular.module('starter.controllers', [])
 			// pause
 			$scope.stopInterval();
 			$cordovaMedia.pause($scope.audio);
-			$scope.updatePosition();
+			$scope.getPosition();
 		}
 		else
 		{
 			// play
 			$cordovaMedia.play($scope.audio);
-			$scope.updatePosition();
+			$scope.getPosition();
 			$scope.startInterval();
 		}
     }
 	
-	$scope.seek = function(delta){
-		//$scope.pause(); // pause and remove interval, and update position
-		//$interval.cancel($scope.audioInterval);
+	$scope.seekTo = function(position){
 		$scope.stopInterval(); // clear interval for a while
-		//var position = $scope.audioPosition;
-		delta = delta * 1000;
-		var newpos = $scope.audioPosition * 1000 + delta;
-		//$scope.audioPosition = parseInt(newpos/1000); // update without calling update position
-		$scope.audioPosition = '...';
-		if (newpos < 0) $scope.audio.seekTo(0);
-		else $scope.audio.seekTo(newpos/2); // for some strange reason, seekto sets to double the expected value
+		if ( position < 0 ) position = 0;
+		if ( position > $scope.audioDuration ) position = $scope.audioDuration;
+		$scope.audio.seekTo(position*1000); // for some strange reason, seekto sets to double the expected value, at least on kiirtan.mp3 @ dmtech (android)
+		$scope.audioPosition = position;
 		$timeout( function(){
-			// wait 2 seconds before updating audioInterval, as it shows the wrong time otherwise
+			// wait x seconds before updating audioInterval, as getPosition shows the wrong time before seekTo is done
 			$scope.startInterval();
 		}, 100	);
-		//$scope.play(); // resume and recreate interval, and update position // fails, only pauses above
-		//$scope.updatePosition();
-		//$scope.audioInterval = $interval($scope.updatePosition, 1000);
-		
-/*		$scope.audio.getCurrentPosition( function(position){
-			//$cordovaMedia.pause($scope.audio);
-			var newpos = position * 1000 + delta;
-			$scope.audioPosition = parseInt(newpos/1000)
-			newpos = newpos / 2; // for some strange reason, seekto sets to double the expected value
-			if (newpos < 0) $scope.audio.seekTo(0);
-			else $scope.audio.seekTo(newpos);
-			$scope.updatePosition(); // todo: make this return position so no need to getCurrentPosition again in here
-			//$scope.attemptedSetToPos = newpos/1000;
-			//$cordovaMedia.play($scope.audio);
-			// debug and see how the new position is not the same as seekto (works when doing .pause and then .play first)
-			//$scope.audio.getCurrentPosition( function(position){
-			//	$scope.didSetToPos = position;
-			//});
-		});*/
+	}
+
+	$scope.sliderChange = function(){
+		// move to slider position if no position value received
+		// similar implementation http://atomx.io/2015/01/ionic-range-slider-when-playing-a-file-with-ngcordovas-cordovamedia/
+		$scope.seekTo( $scope.data.sliderPosition );
+	}
+	
+	$scope.seek = function(delta){
+		$scope.seekTo( $scope.audioPosition + delta );
 	}
  
 	$scope.audioStatus = 0;
