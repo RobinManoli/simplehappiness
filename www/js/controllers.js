@@ -6,8 +6,6 @@ angular.module('starter.controllers', [])
 	$scope.audioPosition = 0;
 	$scope.data = {}; // for two-way bindings
 	$scope.data.sliderPosition = 0;
-	//$scope.attemptedSetToPos = null;
-	//$scope.didSetToPos = null;
 	
 	$scope.getPosition = function(){
 		$scope.audio.getCurrentPosition(
@@ -34,7 +32,7 @@ angular.module('starter.controllers', [])
 
     $scope.startInterval = function(src) {
 		$scope.audioInterval = $interval($scope.getPosition, 1000);
-		//$scope.audioInterval = $interval(function(){ $scope.audioPosition += 1; }, 1000);
+		//$scope.audioInterval = $interval(function(){ $scope.audioPosition += 1; $scope.data.sliderPosition = $scope.audioPosition; }, 1000); // less cpu - count without checking real position
     }
 	
 	$scope.stopInterval = function() {
@@ -99,13 +97,6 @@ angular.module('starter.controllers', [])
         }
     }
 })
-	/*$scope.track = {
-		url: 'audio/kiirtan.mp3',
-		artist: 'This is simple happiness.',
-		title: 'Simple Happiness',
-		art: 'img/inspiration.jpg'
-	}*/
-	// https://www.airpair.com/ionic-framework/posts/using-web-audio-api-for-precision-audio-in-ionic web audio api
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
