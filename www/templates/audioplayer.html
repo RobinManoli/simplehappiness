@@ -1,5 +1,5 @@
 <div>
-	<a class="button button-full button-large button-balanced" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle(audioFilePath)"> {{audioTitle}} {{audioPosition}}</a>
+	<a class="button button-full button-large button-balanced" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle(audioFilePath)"> {{audioTitle}} - {{Math.floor(Math.round(audioPosition) % 3600 / 60)}}:{{Math.round(audioPosition) % 60}} [{{audioPosition | secondsToDateTime | date:'mm:ss'}}]</a>
 
 	<div ng-if="audioStatus == 2">
 		<div class="button-bar">

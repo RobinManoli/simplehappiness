@@ -23,6 +23,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
   });
 })
 
+.filter('secondsToDateTime', function() {
+	// {{audioPosition | secondsToDateTime | date:'mm:ss'}}
+	// {{audioPosition | secondsToDateTime | date:'HH:mm:ss'}}
+    return function(seconds) {
+        var d = new Date(0,0,0,0,0,0,0);
+        d.setSeconds(Math.round(seconds));
+        return d;
+    };
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states

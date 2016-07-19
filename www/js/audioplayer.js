@@ -7,6 +7,7 @@ angular.module('audioplayer', [])
 		templateUrl: 'templates/audioplayer.html',
 		scope: {},
 		link: function(scope, elem, attrs) {
+			scope.Math = window.Math;
 			scope.audioFilePath = attrs.file;
 			scope.audioTitle = attrs.title;
 			scope.audio = null;
