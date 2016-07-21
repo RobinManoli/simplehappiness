@@ -1,5 +1,12 @@
 <div>
-	<a class="button button-full button-large button-balanced" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle(audioFilePath)"> {{audioTitle}} - {{Math.floor(Math.round(audioPosition) % 3600 / 60)}}:{{Math.round(audioPosition) % 60}} [{{audioPosition | secondsToDateTime | date:'mm:ss'}}]</a>
+	<img src="{{audioBanner}}" style="width:100%;" ng-if="audioBanner">
+	<a class="button button-full button-large button-royal" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle()">
+		{{audioTitle}}
+		<span ng-if="audioDuration"> - {{audioPosition | secondsToDateTime | date:'mm:ss'}}</span>
+		<span ng-if="audioDuration"> / {{audioDuration | secondsToDateTime | date:'mm:ss'}}</span>
+	</a>
+	<!-- {{Math.floor(Math.round(audioPosition) % 3600 / 60)}}:{{Math.round(audioPosition) % 60}} -->
+	<!--<ion-toggle ng-model="data.audioDoPlayNext" toggle-class="toggle-calm" ng-change="alert()" ng-click="alert()">Airplane Mode</ion-toggle>-->
 
 	<div ng-if="audioStatus == 2">
 		<div class="button-bar">
@@ -12,11 +19,17 @@
 				max="{{ audioDuration }}" ng-model="data.sliderPosition">
 		</div>
 
-		<button class="button">audioFilePath: {{audioFilePath}}</button>
-		<button class="button">audioStatus: {{audioStatus}}</button>
-		<button class="button">audioDuration: {{audioDuration}}</button>
-		<button class="button">audioPosition: {{audioPosition}}</button>
-		<button class="button">data.sliderPosition: {{data.sliderPosition}}</button>
+		<br>
+		<ion-toggle ng-model="data.audioDoPlayNext" ng-checked="data.audioDoPlayNext">Play next track automatically when this one has finished</ion-toggle>
+
+		<div ng-if="false">
+			<button class="button">audioFilePath: {{audioFilePath}}</button>
+			<button class="button">audioStatus: {{audioStatus}}</button>
+			<button class="button">audioDuration: {{audioDuration}}</button>
+			<button class="button">audioPosition: {{audioPosition}}</button>
+			<button class="button">data.sliderPosition: {{data.sliderPosition}}</button>
+			<button class="button">data.audioDoPlayNext: {{data.audioDoPlayNext}}</button>
+		</div>
 		<br>
 		<br>
 		<br>
