@@ -8,7 +8,11 @@ angular.module('audioplayer', [])
 		scope: {},
 		link: function(scope, elem, attrs) {
 			//scope.Math = window.Math;
+			scope.isLastAudioPlayer = true;
+			// create list of audioplayers, starting with first one
 			if (scope.$parent.audioPlayers === undefined) scope.$parent.audioPlayers = [];
+			// or if not first one
+			else scope.$parent.audioPlayers[scope.$parent.audioPlayers.length-1].isLastAudioPlayer = false;
 			scope.$parent.audioPlayers.push( scope );
 
 			scope.showPlayer = false;
@@ -37,10 +41,12 @@ angular.module('audioplayer', [])
 					// if not last audioplayer and do play next track setting is activated
 					if ( scope.$parent.audioPlayers.length-1 > index && scope.data.audioDoPlayNext )
 					{
+							scope.showPlayer = false;
 							var player = scope.$parent.audioPlayers[index + 1];
 							// start next track from beginning (if played to middle)
 							if ( player.audio ) player.seekTo(0);
-							player.data.audioDoPlayNext = true;
+							if (!player.isLastAudioPlayer) player.data.audioDoPlayNext = true;
+							player.showPlayer = true;
 							// start playback
 							player.playToggle();
 					}

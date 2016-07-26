@@ -16,13 +16,13 @@
 			<a class="button button-dark icon ion-ios-fastforward" ng-click="seek(5)"> 5s</a>
 		</div>
 
-		<div class="item range" ng-if="audioStatus != 0 && audioDuration > -1 && audioPosition > -1">
+		<div class="item range fade" ng-if="audioDuration > -1 && audioPosition > -1">
 			<input type="range" name="volume" min="0" ng-change="sliderChange()"
 				max="{{ audioDuration }}" ng-model="data.sliderPosition">
 		</div>
 
 		<br>
-		<ion-toggle ng-model="data.audioDoPlayNext" ng-checked="data.audioDoPlayNext">Play next automatically</ion-toggle>
+		<ion-toggle ng-if="!isLastAudioPlayer" ng-model="data.audioDoPlayNext" ng-checked="data.audioDoPlayNext">Play next automatically</ion-toggle>
 
 		<div ng-if="false">
 			<button class="button">audioFilePath: {{audioFilePath}}</button>
