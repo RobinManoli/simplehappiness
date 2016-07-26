@@ -4,6 +4,11 @@
 			MindPower.ninja
 			<img src="img/mindpower.png" style="vertical-align:middle;">
 		</a>
+		<div ng-if="false">
+			<button class="button">windowWidth: {{windowWidth}}</button>
+			<button class="button">windowHeight: {{windowHeight}}</button>
+			<button class="button">docHeight: {{docHeight}}</button>
+		</div>
 		<br>
 		<br>
 		<br>
@@ -26,7 +31,7 @@
 			<br>
 			<br>
 		</div>
-		<div ng-if="windowWidth > windowHeight">
+		<div ng-if="windowWidth >= windowHeight">
 			<img src="img/freedom-horizontal.jpg" style="position:absolute; max-width:100%;">
 			<br>
 			<br>
@@ -47,13 +52,22 @@
 			<br>
 			<br>
 		</div>
-		<audio-player audio="audio/relaxation.mp3" title="Relaxation" ></audio-player>
-		<audio-player audio="audio/healing-words.mp3" title="Healing Words" ></audio-player>
+		<audio-player audio="audio/relaxation.mp3" title="Relaxation"></audio-player>
+		<audio-player audio="audio/healing-words.mp3" title="Healing Words"></audio-player>
 		<audio-player audio="audio/inner-transformation.mp3" title="Inner Transformation"></audio-player>
 		<audio-player audio="audio/tillat-tillit.mp3" title="Tillåt tillit" ></audio-player>
 		<audio-player audio="audio/slapp-huvudvark.mp3" title="Släpp huvudvärk" ></audio-player>
 		<!--<audio-player audio="audio/kiirtan.mp3" title="Kiirtan (seek problem)" ></audio-player>
 		<audio-player audio="audio/countdown.mp3" title="Countdown" /></audio-player>-->
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		<br>
 		<br>
 		<br>

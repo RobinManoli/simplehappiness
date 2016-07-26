@@ -7,7 +7,19 @@ angular.module('audioplayer', [])
 		templateUrl: 'templates/audioplayer.html',
 		scope: {},
 		link: function(scope, elem, attrs) {
-			//scope.Math = window.Math;
+			// check if audio file exists for showing player
+			var http = new XMLHttpRequest();
+			http.open('HEAD', attrs.audio, false);
+			http.send();
+			// http status for not found are in browser =404 and on android 4.1.2 =0
+			if ( http.status == 200 ) scope.audioFileExists = true;
+			else
+			{
+				scope.audioFileExists = false;
+				// skip creating this player since file not found
+				return;
+			}
+
 			scope.isLastAudioPlayer = true;
 			// create list of audioplayers, starting with first one
 			if (scope.$parent.audioPlayers === undefined) scope.$parent.audioPlayers = [];
@@ -15,6 +27,7 @@ angular.module('audioplayer', [])
 			else scope.$parent.audioPlayers[scope.$parent.audioPlayers.length-1].isLastAudioPlayer = false;
 			scope.$parent.audioPlayers.push( scope );
 
+			//scope.Math = window.Math;
 			scope.showPlayer = false;
 			scope.audioFilePath = attrs.audio;
 			scope.audioTitle = attrs.title;

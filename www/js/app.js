@@ -20,6 +20,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 			StatusBar.styleDefault();
 		}
 		
+		// FAILED (even with working click-eventlistener and $apply) to get full body height and update dynamically (for android < 4.4? http://stackoverflow.com/questions/36513877/ionic-ion-content-does-not-scroll-on-loading-dynamic-data)
+		//var body = document.body, html = document.documentElement;
+		// http://stackoverflow.com/a/1147768
+		//$rootScope.docHeight = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
 		$rootScope.windowWidth = window.innerWidth;
 		$rootScope.windowHeight = window.innerHeight;
 		window.addEventListener('resize', function() {

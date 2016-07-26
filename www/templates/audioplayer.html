@@ -1,4 +1,4 @@
-<div>
+<div ng-show="audioFileExists">
 	<img src="{{audioBanner}}" style="width:100%;" ng-if="audioBanner">
 	<!--<a class="button button-full button-large button-stable" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle()">-->
 	<a class="button button-full button-large button-stable" ng-click="playerToggle()">
