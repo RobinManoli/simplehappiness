@@ -9,7 +9,7 @@
 	<!-- {{Math.floor(Math.round(audioPosition) % 3600 / 60)}}:{{Math.round(audioPosition) % 60}} -->
 	<!--<ion-toggle ng-model="data.audioDoPlayNext" toggle-class="toggle-calm" ng-change="alert()" ng-click="alert()">Airplane Mode</ion-toggle>-->
 
-	<div class="fade" ng-if="showPlayer">
+	<div class="fade" ng-if="showPlayer" style="margin-bottom:100px;">
 		<div class="button-bar">
 			<a class="button button-dark icon ion-ios-rewind" ng-click="seek(-5)"> 5s</a>
 			<a class="button button-dark icon ion-ios-play" ng-class="{'ion-play':audioStatus != 2, 'ion-pause':audioStatus == 2}" ng-click="playToggle()"></a>
@@ -32,11 +32,5 @@
 			<button class="button">data.sliderPosition: {{data.sliderPosition}}</button>
 			<button class="button">data.audioDoPlayNext: {{data.audioDoPlayNext}}</button>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 	</div>
 </div>

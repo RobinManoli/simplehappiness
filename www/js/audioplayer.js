@@ -18,6 +18,7 @@ angular.module('audioplayer', [])
 			scope.showPlayer = false;
 			scope.audioFilePath = attrs.audio;
 			scope.audioTitle = attrs.title;
+			scope.audioLoadFailed = false;
 			scope.audioBanner = attrs.banner;
 			scope.audio = null;
 			scope.audioStatus = 0;
@@ -53,7 +54,14 @@ angular.module('audioplayer', [])
 				}
 			}
 			
-			var mediaErrorCallback = function() {}
+			var mediaErrorCallback = function(error) {
+				/* MediaError.MEDIA_ERR_ABORTED = 1, MediaError.MEDIA_ERR_NETWORK = 2, MediaError.MEDIA_ERR_DECODE = 3, MediaError.MEDIA_ERR_NONE_SUPPORTED = 4 */
+				if (error.code == 1) // when file doesn't exist
+				{
+					scope.audioLoadFailed = true;
+					alert("We're really sorry! There was an error playing this file.");
+				}
+			}
 			
 			var mediaStatusCallback = function(status) {
 				// Media.MEDIA_NONE 	0	Media.MEDIA_STARTING 	1	Media.MEDIA_RUNNING 	2	Media.MEDIA_PAUSED 	3	Media.MEDIA_STOPPED 	4
@@ -73,7 +81,8 @@ angular.module('audioplayer', [])
 				scope.audio = new Media(src, mediaSuccessCallback, mediaErrorCallback, mediaStatusCallback);
 				$timeout( function(){
 					// wait x seconds before updating audioDuration, as it shows the -1 otherwise
-					scope.audioDuration = scope.audio.getDuration();
+					// since audioLoadFailed might happen after timeout has been initiated, check it here to prevent erroneous duration to show
+					if (!scope.audioLoadFailed) scope.audioDuration = scope.audio.getDuration();
 				}, 500	);
 			}
 
@@ -100,7 +109,12 @@ angular.module('audioplayer', [])
 
 			scope.playToggle = function() {
 				// other than toggles, also prevents multiple plays of same file
-				if (!scope.audio) scope.load();
+				// load file if not loaded
+				// or if failed to load (to be able to try again, or show error again -- though this does not work anyway)
+				if (!scope.audio && !scope.audioLoadFailed) scope.load();
+				// audio load failed, return (to not break other audio players)
+				if (scope.audioLoadFailed) return;
+
 				if (scope.audioStatus == 2)
 				{
 					// PAUSE
