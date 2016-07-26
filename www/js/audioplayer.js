@@ -11,6 +11,7 @@ angular.module('audioplayer', [])
 			if (scope.$parent.audioPlayers === undefined) scope.$parent.audioPlayers = [];
 			scope.$parent.audioPlayers.push( scope );
 
+			scope.showPlayer = false;
 			scope.audioFilePath = attrs.audio;
 			scope.audioTitle = attrs.title;
 			scope.audioBanner = attrs.banner;
@@ -20,6 +21,10 @@ angular.module('audioplayer', [])
 			scope.data = {}; // for two-way bindings
 			scope.data.sliderPosition = 0;
 			scope.data.audioDoPlayNext = false;
+			
+			scope.playerToggle = function(){
+				scope.showPlayer = !scope.showPlayer;
+			}
 		
 			var mediaSuccessCallback = function() {
 				// according to documentation: The callback that executes after a Media object has completed the current play, record, or stop action.

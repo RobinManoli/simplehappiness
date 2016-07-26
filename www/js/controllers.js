@@ -1,5 +1,8 @@
 angular.module('starter.controllers', [])
 
+.controller('ExercisesCtrl', function($scope, $window) {
+})
+
 .controller('DashCtrl', function($scope, $cordovaMedia, $ionicLoading, $ionicPlatform, $interval, $timeout) {
 	//$scope.Math = window.Math;
 	$scope.audio = null;

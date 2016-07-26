@@ -1,6 +1,52 @@
 <ion-view>
-	<ion-content class="padding has-header">
-		<img src="img/freedom.jpg" style="width:100%;">
+	<ion-content class="padding has-header" style="background-color:#e395a2;">
+		<a class="button button-clear button-dark" style="float:right; font-family:'Droid Sans',sans-serif; font-size:22px;" target="_blank" href="http://static.manoli.se/designs/2013-mindpower/">
+			MindPower.ninja
+			<img src="img/mindpower.png" style="vertical-align:middle;">
+		</a>
+		<br>
+		<br>
+		<br>
+		<div ng-if="windowWidth < windowHeight">
+			<img src="img/freedom-vertical.jpg" style="position:absolute; max-width:100%;">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+		<div ng-if="windowWidth > windowHeight">
+			<img src="img/freedom-horizontal.jpg" style="position:absolute; max-width:100%;">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
 		<audio-player audio="audio/relaxation.mp3" title="Relaxation" ></audio-player>
 		<audio-player audio="audio/healing-words.mp3" title="Healing Words" ></audio-player>
 		<audio-player audio="audio/inner-transformation.mp3" title="Inner Transformation"></audio-player>

@@ -7,20 +7,28 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova','audioplayer'/*,'ionic-audio'*/])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
+.run(function($ionicPlatform, $window, $rootScope) {
+	$ionicPlatform.ready(function() {
+		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+		// for form inputs)
+		if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+			cordova.plugins.Keyboard.disableScroll(true);
+		}
+		if (window.StatusBar) {
+		// org.apache.cordova.statusbar required
+			StatusBar.styleDefault();
+		}
+		
+		$rootScope.windowWidth = window.innerWidth;
+		$rootScope.windowHeight = window.innerHeight;
+		window.addEventListener('resize', function() {
+			$rootScope.$apply(function() {
+				$rootScope.windowWidth = window.innerWidth;
+				$rootScope.windowHeight = window.innerHeight;
+			});
+		});
+	});
 })
 
 .filter('secondsToDateTime', function() {
@@ -55,7 +63,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     views: {
       'tab-exercises': {
         templateUrl: 'templates/tab-exercises.html',
-        controller: 'DashCtrl'
+        controller: 'ExercisesCtrl'
       }
     }
   })
