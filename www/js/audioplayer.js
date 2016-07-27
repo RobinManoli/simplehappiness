@@ -1,11 +1,11 @@
 angular.module('audioplayer', [])
 
-.directive('audioPlayer', ['$ionicPlatform', '$timeout', '$ionicLoading', '$cordovaMedia', '$interval', function($ionicPlatform, $timeout, $ionicLoading, $cordovaMedia, $interval) {
+.directive('audioPlayer', ['$ionicPlatform', '$timeout', '$ionicLoading', '$cordovaMedia', '$interval', 'xp', function($ionicPlatform, $timeout, $ionicLoading, $cordovaMedia, $interval, xp) {
 	return {
 		restrict: 'AE',
 		replace: 'true',
 		templateUrl: 'templates/audioplayer.html',
-		scope: {},
+		scope: true,
 		link: function(scope, elem, attrs) {
 			// check if audio file exists for showing player
 			var http = new XMLHttpRequest();
@@ -41,6 +41,7 @@ angular.module('audioplayer', [])
 			scope.data.audioDoPlayNext = false;
 			
 			scope.playerToggle = function(){
+				xp.add(1);
 				scope.showPlayer = !scope.showPlayer;
 			}
 		
@@ -64,6 +65,7 @@ angular.module('audioplayer', [])
 							// start playback
 							player.playToggle();
 					}
+					xp.add(25);
 				}
 			}
 			
@@ -87,6 +89,7 @@ angular.module('audioplayer', [])
 			}
 			
 			scope.load = function(){
+				xp.add(1);
 				// todo: when load context audio hide other audios' seek buttons
 				// https://forum.ionicframework.com/t/how-to-play-local-audio-files/7479/5 android path fix
 				var src = scope.audioFilePath;
@@ -104,9 +107,10 @@ angular.module('audioplayer', [])
 					// success callback
 					function (position) {
 						// todo: remove parseFloat
-						if (position > 0 ) scope.audioPosition = parseFloat(position);
+						if (position > 0 ) scope.audioPosition = position;
 						else scope.audioPosition = 0;
 						scope.data.sliderPosition = scope.audioPosition;
+						if (!( parseInt(position) % 9)) xp.add(1);
 					}
 				);
 			}
@@ -121,6 +125,7 @@ angular.module('audioplayer', [])
 			}
 
 			scope.playToggle = function() {
+				xp.add(1);
 				// other than toggles, also prevents multiple plays of same file
 				// load file if not loaded
 				// or if failed to load (to be able to try again, or show error again -- though this does not work anyway)
@@ -165,11 +170,18 @@ angular.module('audioplayer', [])
 				// move to slider position if no position value received
 				// similar implementation http://atomx.io/2015/01/ionic-range-slider-when-playing-a-file-with-ngcordovas-cordovamedia/
 				scope.seekTo( scope.data.sliderPosition );
+				xp.add(5);
 			}
 			
 			scope.seek = function(delta){
 				scope.seekTo( scope.audioPosition + delta );
 			}
+
+			// didn't work for player control buttons, and might as well be used as ng-click="xp.add(1)"
+			/*var xpElements = elem[0].querySelector(".xp");
+			angular.element(xpElements).bind("click", function() {
+				xp.add(1);
+			});*/
 		},
 	};
 }]);

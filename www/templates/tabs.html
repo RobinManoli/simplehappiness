@@ -5,20 +5,25 @@ navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
-  <!-- Dashboard Tab -->
-  <ion-tab title="Exercises" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/exercises">
-    <ion-nav-view name="tab-exercises"></ion-nav-view>
-  </ion-tab>
+	<!-- Dashboard Tab -->
+	<ion-tab title="Exercises" icon-off="ion-happy-outline" icon-on="ion-happy" href="#/tab/exercises">
+		<ion-nav-view name="tab-exercises"></ion-nav-view>
+	</ion-tab>
 
-  <!-- QnA Tab -->
-  <ion-tab title="QnA" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/qna">
-    <ion-nav-view name="tab-qna"></ion-nav-view>
-  </ion-tab>
+	<!-- QnA Tab -->
+	<ion-tab title="QnA" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/qna">
+		<ion-nav-view name="tab-qna"></ion-nav-view>
+	</ion-tab>
 
-  <!-- Account Tab -->
-  <ion-tab title="Inspiration" icon-off="ion-ios-lightbulb-outline" icon-on="ion-ios-lightbulb" href="#/tab/account">
-    <ion-nav-view name="tab-account"></ion-nav-view>
-  </ion-tab>
+	<!-- Inspiration Tab -->
+	<ion-tab title="Inspiration" icon-off="ion-ios-lightbulb-outline" icon-on="ion-ios-lightbulb" href="#/tab/account">
+		<ion-nav-view name="tab-inspiration"></ion-nav-view>
+	</ion-tab>
+
+	<!-- XP Tab -->
+	<ion-tab title="XP ({{ xp.points || 0 }})" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/xp">
+		<ion-nav-view name="tab-xp"></ion-nav-view>
+	</ion-tab>
 
 
 </ion-tabs>

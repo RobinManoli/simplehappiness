@@ -12,8 +12,8 @@
 		<br>
 		<br>
 		<br>
-		<div ng-if="windowWidth < windowHeight">
-			<img src="img/freedom-vertical.jpg" style="position:absolute; max-width:100%;">
+		<div ng-if="orientationIsHorizonal()">
+			<img src="img/freedom-vertical.jpg" style="position:absolute; width:100%;">
 			<br>
 			<br>
 			<br>
@@ -31,8 +31,8 @@
 			<br>
 			<br>
 		</div>
-		<div ng-if="windowWidth >= windowHeight">
-			<img src="img/freedom-horizontal.jpg" style="position:absolute; max-width:100%;">
+		<div ng-if="!orientationIsHorizonal()">
+			<img src="img/freedom-horizontal.jpg" style="position:absolute; width:100%;">
 			<br>
 			<br>
 			<br>

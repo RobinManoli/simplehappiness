@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('ExercisesCtrl', function($scope, $window) {
+.controller('ExercisesCtrl', function($scope) {
 })
 
 .controller('DashCtrl', function($scope, $cordovaMedia, $ionicLoading, $ionicPlatform, $interval, $timeout) {

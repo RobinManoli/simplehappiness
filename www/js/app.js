@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova','audioplayer'/*,'ionic-audio'*/])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova','audioplayer','xp'/*,'ionic-audio'*/])
 
-.run(function($ionicPlatform, $window, $rootScope) {
+.run(function($ionicPlatform, $window, $rootScope, xp) {
 	$ionicPlatform.ready(function() {
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -24,14 +24,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 		//var body = document.body, html = document.documentElement;
 		// http://stackoverflow.com/a/1147768
 		//$rootScope.docHeight = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
-		$rootScope.windowWidth = window.innerWidth;
+
+		// sometimes background image is not showing, because these values get empty string values in angular expressions
+		/*$rootScope.windowWidth = window.innerWidth;
 		$rootScope.windowHeight = window.innerHeight;
 		window.addEventListener('resize', function() {
 			$rootScope.$apply(function() {
 				$rootScope.windowWidth = window.innerWidth;
 				$rootScope.windowHeight = window.innerHeight;
 			});
-		});
+		})*/;
+		// so create a function that makes sure these values are set when needed (might require event listener?)
+		$rootScope.orientationIsHorizonal = function(){
+			return (window.innerWidth > window.innerHeight);
+		}
+		$rootScope.xp = xp;
 	});
 })
 
