@@ -2,6 +2,7 @@ angular.module('xp', [])
 
 .service('xp', function($timeout, localStorageService) {
 	var $this = this;
+	// https://github.com/grevory/angular-local-storage
 	if ( !localStorageService.get("points") ) localStorageService.set("points", 0)
 	this.points = localStorageService.get("points");
 	this.add = function(points){

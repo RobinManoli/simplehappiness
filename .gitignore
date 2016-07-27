@@ -6,3 +6,7 @@ platforms/
 plugins/
 *.mp3
 *.jpg
+*.png
+*.svg
+*.exe
+*.apk
