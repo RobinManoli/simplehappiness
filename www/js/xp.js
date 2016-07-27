@@ -1,11 +1,21 @@
 angular.module('xp', [])
 
-.service('xp', function($timeout) {
+.service('xp', function($timeout, localStorageService) {
 	var $this = this;
-	this.points = 0;
+	if ( !localStorageService.get("points") ) localStorageService.set("points", 0)
+	this.points = localStorageService.get("points");
 	this.add = function(points){
+		// smoothen xp points to not make it obvious what causes them... should change to update all accumlated points every minute
 		$timeout(function(){
 			$this.points += points;
-		}, 5000);
+			localStorageService.set("points", $this.points)
+		}, 0);
 	}
 })
+
+/*.service('store', function($window) {
+	var $this = this;
+	this.save = $window.localStorage.setItem; //("username", username)
+	this.load = $window.localStorage.getItem; //("username")
+	this.del = $window.localStorage.removeItem; //("username")
+})*/
