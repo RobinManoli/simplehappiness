@@ -103,7 +103,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     views: {
       'tab-xp': {
         templateUrl: 'templates/tab-xp.html',
-        controller: 'AccountCtrl'
+        controller: 'XPCtrl'
       }
     }
   });
