@@ -4,7 +4,7 @@ angular.module('xp', [])
 	//$scope.moment = moment;
 	//$scope.now = moment();
 	var sessions = []; // todo: store as array in localStorage
-	for (var i = 30; i >= 0; i--)
+	for (var i = 60; i >= 0; i--)
 	{
 		var score = Math.floor((Math.random() * 5)); // 0-5 score depending on how much practice that day
 		if (!score) continue;
